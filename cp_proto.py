@@ -27,12 +27,13 @@ def recomp( factor_matrices, lambdas, orig_shape ):
     return t_r
 
 
-def cp_decomp( tensor, num_factors, epochs ):
+def cp_decomp( tensor, num_factors, epochs, threshold ):
     """
     function to carry out a CP decomposition for a given tensor
     :param tensor: input tensor to carry out decomposition for
     :param num_factors: number of rank-one factors to fit for
     :param epochs: maximum number iterations
+    :param threshold: maximum acceptable error
     :return : error rate, weight vector, factor matrices
     """
     shape = tensor.shape
@@ -45,9 +46,6 @@ def cp_decomp( tensor, num_factors, epochs ):
 #   initialize factors to random values
     for i in range( 0 , N ):
         factor_matrices[i] = np.full( (shape[i],num_factors), 1 )
-#   initialize previous cost to infinity so it always allows first iteration to pass
-    prev_cost = 0
-    cur_cost = float( "inf" )
     ep_passed = 0
     lambdas = np.zeros( num_factors )
     while True:
@@ -68,12 +66,10 @@ def cp_decomp( tensor, num_factors, epochs ):
             lambdas[n] = np.linalg.norm( factor_matrices[n] )
             factor_matrices[n] = ( 1 / lambdas[n] ) * factor_matrices[n]
         est = recomp( factor_matrices , lambdas , shape )
-        prev_cost = cur_cost
-        cur_cost = fr_norm_tensor( tensor, est)
+        cost = fr_norm_tensor( tensor, est )
         ep_passed += 1
-        if not cur_cost - prev_cost <= 0 and ep_passed < epochs:
+        if not cost > threshold or not ep_passed < epochs:
             break
-    print(ep_passed)
     return lambdas, factor_matrices
 
 
@@ -82,5 +78,5 @@ def cp_decomp( tensor, num_factors, epochs ):
 
 
 t = np.full( (2,2,2), 1 )
-c = cp_decomp(t, 3, 20)
+c = cp_decomp(t, 3, 1000, .01)
 print( recomp( c[1], c[0], t.shape))
