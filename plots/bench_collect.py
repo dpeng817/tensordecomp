@@ -131,6 +131,6 @@ def test_inner_product_mult(max_d_size, d_interval, num_samples):
     plt.tight_layout()
     plt.savefig('figures/test_inner_product_mult.eps', format='eps', dpi=1000)
 
-test_matrix_creation(100, 10, 20)
-test_matrix_matrix_mult(100, 10, 10, 1, 20)
-test_inner_product_mult(100, 10, 20)
+test_matrix_creation(1000000, 100, 20)
+test_matrix_matrix_mult(1000000, 500, 100, 50, 20)
+test_inner_product_mult(1000000, 100, 20)
