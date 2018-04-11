@@ -29,7 +29,7 @@ def test_matrix_creation(max_dim_size, interval, num_samples, cores=1):
         procs = []
         for i in range(d, d + (interval * cores), interval):
             print(i)
-            proc = sp.Popen('python3 bench_norm_m_creation.py ' + str(i) + ' ' + str(num_samples))
+            proc = sp.Popen(['python3 bench_norm_m_creation.py', str(i), str(num_samples)])
             procs.append(proc.pid)
         for proc in procs:
             os.waitpid(proc, 0)
@@ -76,7 +76,7 @@ def test_matrix_matrix_mult(max_d_size, max_k_size,
             procs = []
             for i in range(d, d + (interval * cores), interval):
                 print(i)
-                proc = sp.Popen('python3 bench_mm_mult.py ' + str(i) + ' ' + str(k) + ' ' + str(num_samples))
+                proc = sp.Popen(['python3 bench_mm_mult.py', str(i), str(k), str(num_samples)])
                 procs.append(proc.pid)
             for proc in procs:
                 os.waitpid(proc, 0)
@@ -125,7 +125,7 @@ def test_inner_product_mult(max_d_size, d_interval, num_samples, cores=1):
         procs = []
         for i in range(d, d + (interval * cores), interval):
             print(i)
-            proc = sp.Popen('python3 bench_dot_prod.py ' + str(i) + ' ' + str(num_samples))
+            proc = sp.Popen(['python3 bench_dot_prod.py', str(i), str(num_samples)])
             procs.append(proc.pid)
         for proc in procs:
             os.waitpid(proc)
