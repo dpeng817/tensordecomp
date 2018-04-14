@@ -71,7 +71,7 @@ def test_matrix_matrix_mult(max_d_size, max_k_size,
         times = []
         with open('data/data_mm_mult_cuda.csv', 'w') as f:
             f.truncate()
-        for d in range(1, max_dim_size, interval * cores):
+        for d in range(1, max_d_size, interval * cores):
             procs = []
             for i in range(d, d + (interval * cores), interval):
                 print(i)
@@ -120,7 +120,7 @@ def test_inner_product_mult(max_d_size, d_interval, num_samples, cores=1):
                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
     dims = []
     times = []
-    for d in range(1, max_dim_size, interval * cores):
+    for d in range(1, max_d_size, interval * cores):
         procs = []
         for i in range(d, d + (interval * cores), interval):
             print(i)
