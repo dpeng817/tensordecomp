@@ -38,7 +38,6 @@ def test_matrix_creation(max_dim_size, interval, num_samples, cores=1):
         reader = csv.reader(csvfile, delimiter=';',
                 quotechar='|')
         for row in reader:
-            print(row)
             dims.append(int(row[0]))
             times.append(float(row[1]) / float(row[2]))
 
@@ -149,6 +148,6 @@ def test_inner_product_mult(max_d_size, d_interval, num_samples, cores=1):
     plt.tight_layout()
     plt.savefig('figures/test_inner_product_mult_cuda.eps', format='eps', dpi=1000)
 
-test_matrix_creation(1000000, 500, 20)
+#test_matrix_creation(1000000, 500, 20)
 test_matrix_matrix_mult(1000000, 500, 500, 50, 20)
-test_inner_product_mult(1000000, 500, 20)
+#test_inner_product_mult(1000000, 500, 20)
