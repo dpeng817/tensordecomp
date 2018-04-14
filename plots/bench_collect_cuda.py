@@ -71,9 +71,9 @@ def test_matrix_matrix_mult(max_d_size, max_k_size,
         times = []
         with open('data/data_mm_mult_cuda.csv', 'w') as f:
             f.truncate()
-        for d in range(1, max_d_size, interval * cores):
+        for d in range(1, max_d_size, d_interval * cores):
             procs = []
-            for i in range(d, d + (interval * cores), interval):
+            for i in range(d, d + (d_interval * cores), d_interval):
                 print(i)
                 proc = sp.Popen(['python3', 'bench_mm_mult_cuda.py', str(i), str(k), str(num_samples)])
                 procs.append(proc.pid)
@@ -120,9 +120,9 @@ def test_inner_product_mult(max_d_size, d_interval, num_samples, cores=1):
                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
     dims = []
     times = []
-    for d in range(1, max_d_size, interval * cores):
+    for d in range(1, max_d_size, d_interval * cores):
         procs = []
-        for i in range(d, d + (interval * cores), interval):
+        for i in range(d, d + (d_interval * cores), d_interval):
             print(i)
             proc = sp.Popen(['python3', 'bench_dot_prod_cuda.py', str(i), str(num_samples)])
             procs.append(proc.pid)
