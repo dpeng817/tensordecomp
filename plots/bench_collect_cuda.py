@@ -127,7 +127,7 @@ def test_inner_product_mult(max_d_size, d_interval, num_samples, cores=1):
             proc = sp.Popen(['python3', 'bench_dot_prod_cuda.py', str(i), str(num_samples)])
             procs.append(proc.pid)
         for proc in procs:
-            os.waitpid(proc)
+            os.waitpid(proc, 0)
     with open('data_dot_product_cuda.csv', 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter=';',
                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
