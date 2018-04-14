@@ -1,4 +1,4 @@
-import numpy as np
+import cupy as cp
 import time
 import csv
 import sys
@@ -10,7 +10,7 @@ d = int(sys.argv[1])
 num_samples = int(sys.argv[2])
 start = time.time()
 for i in range(0, num_samples):
-    np.random.standard_normal((d, d))
+    cp.random.standard_normal((d, d))
 end = time.time()
 with open('data/data_norm_m_creation.csv', 'a') as f:
     writer = csv.writer(f, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
