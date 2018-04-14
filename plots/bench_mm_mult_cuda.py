@@ -16,9 +16,9 @@ start = time.time()
 for i in range(0, num_samples):
     cp.matmul(m1, m2)
 end = time.time()
-with open('data/all_k_mm_mult.csv', 'a') as f:
+with open('data/all_k_mm_mult_cuda.csv', 'a') as f:
     writer = csv.writer(f, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
     writer.writerow([str(d),str(k),str(end-start),str(num_samples)])
-with open('data/data_mm_mult.csv', 'a') as f:
+with open('data/data_mm_mult_cuda.csv', 'a') as f:
     writer = csv.writer(f, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
     writer.writerow([str(d),str(k),str(end-start),str(num_samples)])

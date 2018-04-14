@@ -34,7 +34,7 @@ def test_matrix_creation(max_dim_size, interval, num_samples, cores=1):
         for proc in procs:
             os.waitpid(proc, 0)
 #   gather data
-    with open('data/data_norm_m_creation.csv', 'r') as csvfile:
+    with open('data/data_norm_m_creation_cuda.csv', 'r') as csvfile:
         reader = csv.reader(csvfile, delimiter=';',
                 quotechar='|')
         for row in reader:
@@ -95,7 +95,7 @@ def test_matrix_matrix_mult(max_d_size, max_k_size,
     plt.xscale('log')
     plt.title("Matrix by Matrix Multiplication Benchmark")
     plt.legend(loc='best')
-    plt.savefig('figures/test_matrix_matrix_mult.eps', format='eps', dpi=1000)
+    plt.savefig('figures/test_matrix_matrix_mult_cuda.eps', format='eps', dpi=1000)
     plt.figure(1)
     plt.xscale('linear')
     plt.xlim(0, int(max_d_size / d_interval))

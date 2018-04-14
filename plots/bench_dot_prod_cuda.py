@@ -16,9 +16,9 @@ for i in range(0, num_samples):
     cp.dot(v1, v2)
 time.sleep(10)
 end = time.time()
-with open('data/data_dot_prod.csv', 'a') as f:
+with open('data/data_dot_prod_cuda.csv', 'a') as f:
     writer = csv.writer(f, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
     writer.writerow([str(d),str(end-start),str(num_samples)])
-with open('data/all_dot_prod.csv', 'a') as f:
+with open('data/all_dot_prod_cuda.csv', 'a') as f:
     writer = csv.writer(f, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
     writer.writerow([str(d),str(end-start),str(num_samples)])

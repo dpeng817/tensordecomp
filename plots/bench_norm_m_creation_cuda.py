@@ -12,9 +12,9 @@ start = time.time()
 for i in range(0, num_samples):
     cp.random.standard_normal((d, d))
 end = time.time()
-with open('data/data_norm_m_creation.csv', 'a') as f:
+with open('data/data_norm_m_creation_cuda.csv', 'a') as f:
     writer = csv.writer(f, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
     writer.writerow([str(d), str(end-start), str(num_samples)])
-with open('data/all_norm_m_creation.csv', 'a') as f:
+with open('data/all_norm_m_creation_cuda.csv', 'a') as f:
     writer = csv.writer(f, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
     writer.writerow([str(d), str(end-start), str(num_samples)])
