@@ -20,7 +20,7 @@ def test_matrix_creation(max_dim_size, interval, num_samples, cores=1):
     dims = []
     times = []
 #   create file
-    '''with open('data/data_norm_m_creation_cuda.csv', 'w') as csvfile:
+    with open('data/data_norm_m_creation_cuda.csv', 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter=';',
                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
 #       writer.writerow(['dimension', 'time', 'num_samples'])
@@ -32,7 +32,7 @@ def test_matrix_creation(max_dim_size, interval, num_samples, cores=1):
             proc = sp.Popen(['python3', 'bench_norm_m_creation_cuda.py', str(i), str(num_samples)])
             procs.append(proc.pid)
         for proc in procs:
-            os.waitpid(proc, 0)'''
+            os.waitpid(proc, 0)
 #   gather data
     with open('data/data_norm_m_creation_cuda.csv', 'r') as csvfile:
         reader = csv.reader(csvfile, delimiter=';',
@@ -40,12 +40,12 @@ def test_matrix_creation(max_dim_size, interval, num_samples, cores=1):
         for row in reader:
             dims.append(int(row[0]))
             times.append(float(row[1]) / float(row[2]))
-
 #   plot data
+    plt.figure(4)
     plt.xlabel("Matrix dimension (square matrix)")
     plt.ylabel("Time elapsed (sec)")
     plt.title('Random Gaussian Matrix Generation Benchmarking')
-    plt.plot(range(1, max_dim_size, interval), times)
+    plt.plot(dims, times)
     plt.xscale('log')
     plt.tight_layout()
     plt.savefig('figures/test_matrix_creation_cuda.eps', format='eps', dpi=1000)
@@ -69,7 +69,7 @@ def test_matrix_matrix_mult(max_d_size, max_k_size,
     for k in range(1, max_k_size, k_interval):
         dims = []
         times = []
-        '''with open('data/data_mm_mult_cuda.csv', 'w') as f:
+        with open('data/data_mm_mult_cuda.csv', 'w') as f:
             f.truncate()
         for d in range(1, max_d_size, d_interval * cores):
             procs = []
@@ -78,7 +78,7 @@ def test_matrix_matrix_mult(max_d_size, max_k_size,
                 proc = sp.Popen(['python3', 'bench_mm_mult_cuda.py', str(i), str(k), str(num_samples)])
                 procs.append(proc.pid)
             for proc in procs:
-                os.waitpid(proc, 0)'''
+                os.waitpid(proc, 0)
         with open('data/data_mm_mult_cuda.csv', 'r') as csvfile:
             reader = csv.reader(csvfile, delimiter=';',
                     quotechar='|')
@@ -120,14 +120,14 @@ def test_inner_product_mult(max_d_size, d_interval, num_samples, cores=1):
                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
     dims = []
     times = []
-    '''for d in range(1, max_d_size, d_interval * cores):
+    for d in range(1, max_d_size, d_interval * cores):
         procs = []
         for i in range(d, d + (d_interval * cores), d_interval):
             print(i)
             proc = sp.Popen(['python3', 'bench_dot_prod_cuda.py', str(i), str(num_samples)])
             procs.append(proc.pid)
         for proc in procs:
-            os.waitpid(proc, 0)'''
+            os.waitpid(proc, 0)
 #   gather data
     with open('data/data_dot_prod_cuda.csv', 'r') as csvfile:
         reader = csv.reader(csvfile, delimiter=';',
@@ -135,6 +135,8 @@ def test_inner_product_mult(max_d_size, d_interval, num_samples, cores=1):
         for row in reader:
             dims.append(int(row[0]))
             times.append(float(row[1]) / float(row[2]))
+    print(dims)
+    print(times)
     plt.figure(2)
     plt.xlabel("Size of each vector")
     plt.ylabel("Time elapsed (sec)")
@@ -143,6 +145,6 @@ def test_inner_product_mult(max_d_size, d_interval, num_samples, cores=1):
     plt.tight_layout()
     plt.savefig('figures/test_inner_product_mult_cuda.eps', format='eps', dpi=1000)
 
-test_matrix_creation(1000000, 500, 20)
-test_matrix_matrix_mult(1000000, 500, 500, 50, 20)
+test_matrix_creation(39000, 500, 20)
+test_matrix_matrix_mult(39000, 500, 500, 50, 20)
 test_inner_product_mult(1000000, 500, 20)

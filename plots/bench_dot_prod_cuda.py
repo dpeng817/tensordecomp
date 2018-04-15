@@ -14,7 +14,6 @@ v2 = cp.full((d), 0.5)
 start = time.time()
 for i in range(0, num_samples):
     cp.dot(v1, v2)
-time.sleep(10)
 end = time.time()
 with open('data/data_dot_prod_cuda.csv', 'a') as f:
     writer = csv.writer(f, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
